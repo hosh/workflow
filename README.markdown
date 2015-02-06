@@ -5,6 +5,13 @@ at http://rubygems.org/gems/workflow : select a version (optional,
 default is latest release), click "Documentation" link. When reading on
 github.com, the README refers to the upcoming release.
 
+Support
+-------
+
+This branch of the code ONLY supports workflow on ActiveRecord 3 or newer.
+Dropped support for Remodel as well. This simplifies things and gets it
+working with modern Concern and class_attribute extensions.
+
 What is workflow?
 -----------------
 
