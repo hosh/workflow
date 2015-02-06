@@ -1,8 +1,9 @@
 require 'rubygems'
-require 'test/unit'
+require 'minitest/unit'
+require 'minitest/autorun'
 require 'active_record'
 
-class << Test::Unit::TestCase
+class << Minitest::Test
   def test(name, &block)
     test_name = :"test_#{name.gsub(' ','_')}"
     raise ArgumentError, "#{test_name} is already defined" if self.instance_methods.include? test_name.to_s
@@ -14,7 +15,7 @@ class << Test::Unit::TestCase
   end
 end
 
-class ActiveRecordTestCase < Test::Unit::TestCase
+class ActiveRecordTestCase < Minitest::Test
   def exec(sql)
     ActiveRecord::Base.connection.execute sql
   end

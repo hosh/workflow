@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 require 'workflow'
 
-class WithoutWorkflowTest < Test::Unit::TestCase
+class WithoutWorkflowTest < Minitest::Test
   class Article
     include Workflow
     workflow do

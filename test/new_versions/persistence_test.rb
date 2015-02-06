@@ -7,6 +7,7 @@ require 'mocha/setup'
 require 'stringio'
 
 ActiveRecord::Migration.verbose = false
+ACTIVERECORD_4 = ::ActiveRecord::VERSION::MAJOR >= 4
 
 class PersistenceTestOrder < ActiveRecord::Base
   include Workflow
@@ -22,7 +23,8 @@ class PersistenceTestOrder < ActiveRecord::Base
     state :shipped
   end
 
-  attr_accessible :title # protecting all the other attributes
+  # protecting all the other attributes
+  attr_accessible :title unless ACTIVERECORD_4
 
 end
 
@@ -51,6 +53,7 @@ class PersistenceTest < ActiveRecordTestCase
   end
 
   test 'ensure other dirty attributes are not saved on state change' do
+    skip('ActiveRecord 4 does not have attr_accessible') if ACTIVERECORD_4
     o = assert_state 'order6', 'accepted'
     o.title = 'going to change the title'
     assert o.changed?

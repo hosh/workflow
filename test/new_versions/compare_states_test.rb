@@ -15,7 +15,7 @@ class ComparableStatesOrder
   end
 end
 
-class CompareStatesTest < Test::Unit::TestCase
+class CompareStatesTest < Minitest::Test
 
   test 'compare states' do
     o = ComparableStatesOrder.new

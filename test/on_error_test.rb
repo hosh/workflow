@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 require 'workflow'
 
-class OnErrorTest < Test::Unit::TestCase
+class OnErrorTest < Minitest::Test
   # A class that does not handle errors in an error block
   class NoErrorBlock
     include Workflow
