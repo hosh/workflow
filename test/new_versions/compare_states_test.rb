@@ -24,7 +24,7 @@ class CompareStatesTest < Minitest::Test
     assert o.current_state == :accepted
     assert o.current_state < :shipped
     assert o.current_state > :submitted
-    assert_raise ArgumentError do
+    assert_raises ArgumentError do
       o.current_state > :unknown
     end
   end

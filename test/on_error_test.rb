@@ -38,13 +38,17 @@ class OnErrorTest < Minitest::Test
 
   test 'that an exception is raised if there is no associated on_error block' do
     flow = NoErrorBlock.new
-    assert_raise( RuntimeError, "This is some random runtime error" ) { flow.forward! }
+    assert_raises( RuntimeError, "This is some random runtime error" ) { flow.forward! }
     assert_equal(true, flow.first?)
   end
-  
+
   test 'that on_error block is called when an exception is raised and the transition is halted' do
     flow = ErrorBlock.new
-    assert_nothing_raised { flow.forward! }
+    flow.forward!
+
+    # Minitest does not support assert_nothing_raised
+    #assert_nothing_raised { flow.forward! }
+
     assert_equal({:error => RuntimeError, :from=>:first, :to=>:second, :event=>:forward, :args=>[]}, flow.errors)
     # transition should not happen
     assert_equal(true, flow.first?)

@@ -26,7 +26,7 @@ class WithoutWorkflowTest < Minitest::Test
   end
 
   test 'better error message on transitions_to typo' do
-    assert_raise Workflow::WorkflowDefinitionError do
+    assert_raises Workflow::WorkflowDefinitionError do
       Class.new do
         include Workflow
         workflow do
