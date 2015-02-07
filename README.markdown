@@ -12,6 +12,9 @@ This branch of the code ONLY supports workflow on ActiveRecord 3 or newer.
 Dropped support for Remodel as well. This simplifies things and gets it
 working with modern Concern and class_attribute extensions.
 
+This branch also significantly simplified the inheritance code. The
+original was funky, overly-complex, and brittle.
+
 What is workflow?
 -----------------
 
