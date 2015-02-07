@@ -2,6 +2,8 @@ require 'rubygems'
 
 require 'active_support/concern'
 require 'active_support/core_ext/class/attribute'
+require 'active_support/core_ext/object/try'
+
 require 'workflow/specification'
 require 'workflow/adapters/active_record'
 
@@ -98,7 +100,7 @@ module Workflow
   def current_state
     loaded_state = load_workflow_state
     res = spec.states[loaded_state.to_sym] if loaded_state
-    res || spec.initial_state
+    res || spec.try(:initial_state)
   end
 
   # See the 'Guards' section in the README
@@ -161,17 +163,12 @@ module Workflow
 
   def spec
     # check the singleton class first
+    # This is here to support multiple workflows
     class << self
       return workflow_spec if workflow_spec
     end
 
-    c = self.class
-    # using a simple loop instead of class_inheritable_accessor to avoid
-    # dependency on Rails' ActiveSupport
-    until c.workflow_spec || !(c.include? Workflow)
-      c = c.superclass
-    end
-    c.workflow_spec
+    self.class.workflow_spec
   end
 
   private
